@@ -3,9 +3,8 @@
 ## localhost domain
   `exam.local` put this in your hostfile
 
-## Docker deployment
-   `docker-compose up -d --build`
-   execute this command to make the project work
+## Initialization
+   `init.sh` run this file to build this project on docker and also to run the `composer install` 
 
 ## Application
   `exam.local/app` visit this url to start using the project

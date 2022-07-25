@@ -16,9 +16,7 @@ RUN git config --global user.name "jerremeirago" \
   && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" 
 
 
-RUN mkdir /var/www/html/lbpam
-
-WORKDIR /var/www/html/
+WORKDIR /var/www/html/exam/
 
 # mail hog , fake smtp
 RUN apt-get install wget -y \
@@ -36,4 +34,4 @@ RUN apt-get install -y libxml2-dev \
 
 COPY /docker/000-default.conf /etc/apache2/sites-available/000-default.conf
 
-RUN chmod -R 0777 .
+RUN chmod -R 0777  .
