@@ -10,5 +10,5 @@ docker exec -i mysql_exam mysql -uroot -proot -e "CREATE DATABASE activelamp_exa
 # laravel
 php artisan down
 php artisan key:generate
-php artisan migrate
+php artisan migrate:fresh
 php artisan up 
