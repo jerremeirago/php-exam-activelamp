@@ -25,7 +25,11 @@ class Domain implements Rule
      */
     public function passes($attribute, $value)
     {
-         return preg_match('/^(?!:\/\/)(?=.{1,255}$)((.{1,63}\.){1,127}(?![0-9]*$)[a-z0-9-]+\.?)$/i', $value);
+        $validate = filter_var($value, FILTER_VALIDATE_URL);
+
+        if ($validate) {
+            return true;
+        }
     }
 
     /**

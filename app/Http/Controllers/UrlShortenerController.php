@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Interfaces\UrlShortenerInterface;
 use Illuminate\Support\Facades\Redirect;
+use App\Rules\Domain;
 
 class UrlShortenerController extends Controller
 {
@@ -49,7 +50,7 @@ class UrlShortenerController extends Controller
     {
         // validate url
         $validator = Validator::make($request->all(),[
-            'url' => 'required|regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
+            'url' => ['required' , new Domain()]
         ]);
 
         if ($validator->fails()) {
@@ -75,12 +76,14 @@ class UrlShortenerController extends Controller
         // check if url was already exists
         $current = $this->urlShortenerInterface->findByUrl($validated['url']);
 
+        $isExists = false;
         if (empty($current)) {
             // new entry
             $result = $this->urlShortenerInterface->store($data);
         } else {
             // return the existing one 
             $result = $current;
+            $isExists = true;
         }
 
         // shorten url
@@ -88,7 +91,8 @@ class UrlShortenerController extends Controller
 
         return [
             'status' => 'success',
-            'shortenUrl' => $shortenUrl
+            'shortenUrl' => $shortenUrl,
+            'exists' => $isExists
         ];
 
     }

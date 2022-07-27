@@ -24,6 +24,13 @@ $(document).ready(function(){
                 successText.fadeOut();
                 successText.fadeIn();
                 successText.val(data.shortenUrl);
+
+                // append to the recent conversions
+
+                if (!data.exists) {
+                    var linkTag = "<li class='list-group-item '><a class='text-success' target='_blank' href='" + data.shortenUrl + "'>" + data.shortenUrl + "</a></li>";
+                    $('.recent-conversions .list-group').prepend(linkTag);
+                }
             } else {
 
                 errorArea.fadeOut();
